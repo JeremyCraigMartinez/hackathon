@@ -25,8 +25,9 @@ app.all('*', function(req, res, next) {
 buf = []
 
 app.post('/', function(req, res){
-	if (buf.length > 100):
+	if (buf.length > 100){
 		buf.pop();
+	}
 	buf.push(req.body);
 	console.log(req.body);
 	res.end();
