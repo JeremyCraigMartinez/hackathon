@@ -6,19 +6,6 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.get('/', function(req, res){
-	messages=[
-		"GO away",
-		"Go Cougs",
-		"Hey mother fucker",
-		"Kyle says hello goodbye",
-		"Devin says goodbye",
-		"Jeremy says hi"
-	]
-	num = Math.floor(Math.random()*5);
-  res.send(messages[num]);
-});
-
 io.on('connection', function(socket){
   console.log('a user connected');
 });
@@ -35,11 +22,21 @@ app.all('*', function(req, res, next) {
   next();
  });
 
+app.post('/', function(req, res){
+	messages=[
+		"GO away",
+		"Go Cougs",
+		"Hey mother fucker",
+		"Kyle says hello goodbye",
+		"Devin says goodbye",
+		"Jeremy says hi"
+	]
+	num = Math.floor(Math.random()*5);
+	console.log(req.body)
+  res.send(messages[num]);
+});
+
 app.post('/hello', function(req, res){
 	console.log(req.body)
 	res.send()
-});
-
-app.get('/hello', function(req, res){
-	res.send({"hello":"world"})
 });
