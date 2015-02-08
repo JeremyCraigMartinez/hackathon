@@ -37,3 +37,8 @@ app.get('/', function(req, res){
   res.send(buf);
   buf = [];
 });
+
+app.get('/webpage', function(req, res){
+  res.send(buf);
+});
+
