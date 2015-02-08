@@ -7,7 +7,16 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.get('/', function(req, res){
-  res.send("Hey mother fucker");
+	messages=[
+		"GO away",
+		"Go Cougs",
+		"Hey mother fucker",
+		"Kyle says hello goodbye",
+		"Devin says goodbye",
+		"Jeremy says hi"
+	]
+	num = Math.number(5);
+  res.send(message[num]);
 });
 
 io.on('connection', function(socket){
