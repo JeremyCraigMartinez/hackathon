@@ -25,3 +25,9 @@ var http = require('http');
 var secureServer = http.createServer(app).listen('5024', function(){
     //console.log("Secure Express server listening on port 5024");
 });
+
+var io = require("socket.io").listen(secureServer)
+
+io.sockets.on('connection', function(socket){
+	console.log("New client has connected");
+});
