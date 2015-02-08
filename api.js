@@ -1,5 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var url = require('url');
+var BinaryServer = require('binaryjs').BinaryServer;
+var fs = require('fs');
 
 var app = express();
 
@@ -12,6 +15,14 @@ io.on('connection', function(socket){
 
 http.listen(5024, function(){
   console.log('listening on *:5024');
+});
+
+var server = BinaryServer({port: 9000});
+server.on('connection', function(client){ 
+	console.log("here")  ;
+  var file = fs.createReadStream(__dirname + '/package.json');
+	var stream = client.createStream();
+	file.pipe(stream);
 });
 
 app.use(bodyParser());
@@ -39,6 +50,10 @@ app.get('/', function(req, res){
 });
 
 app.get('/webpage', function(req, res){
+  res.send(buf);
+});
+
+app.get('/livestream', function(req, res){
   res.send(buf);
 });
 
