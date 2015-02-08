@@ -16,7 +16,7 @@ app.get('/', function(req, res){
 		"Jeremy says hi"
 	]
 	num = Math.random(5);
-  res.send(message[num]);
+  res.send(messages[num]);
 });
 
 io.on('connection', function(socket){
