@@ -29,5 +29,9 @@ var secureServer = http.createServer(app).listen('5024', function(){
 var io = require("socket.io").listen(secureServer)
 
 io.sockets.on('connection', function(socket){
+	socket.emit('message', {message: 'welcome, KYLE'});
+	socket.on('send',function(data){
+		io.sockets.emit('message',data);
+	});
 	console.log("New client has connected");
 });
