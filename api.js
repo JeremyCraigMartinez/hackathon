@@ -3,6 +3,21 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.get('/', function(req, res){
+  res.sendfile('index.html');
+});
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+http.listen(5024, function(){
+  console.log('listening on *:5024');
+});
+
 app.use(bodyParser());
 
 app.all('*', function(req, res, next) {
@@ -18,20 +33,4 @@ app.post('/hello', function(req, res){
 
 app.get('/hello', function(req, res){
 	res.send({"hello":"world"})
-});
-
-var http = require('http');
-
-var secureServer = http.createServer(app).listen('5024', function(){
-    //console.log("Secure Express server listening on port 5024");
-});
-
-var io = require("socket.io").listen(secureServer)
-
-io.sockets.on('connection', function(socket){
-	socket.emit('message', {message: 'welcome, KYLE'});
-	socket.on('send',function(data){
-		io.sockets.emit('message',data);
-	});
-	console.log("New client has connected");
 });
