@@ -24,7 +24,7 @@ app.all('*', function(req, res, next) {
 
 app.post('/', function(req, res){
 	var request  = require('request');
-	var pipe 		 = req.pipe(request.get('0.0.0.0/'));
+	var pipe 		 = req.pipe(request.get('104.236.169.12:5024/'));
 	var response = []
 
 	pipe.on('data', function(chunk){
