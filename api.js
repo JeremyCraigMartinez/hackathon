@@ -23,6 +23,22 @@ app.all('*', function(req, res, next) {
  });
 
 app.post('/', function(req, res){
+	var request  = require('request');
+	var pipe 		 = req.pipe(request.get('/'));
+	var response = []
+
+	pipe.on('data', function(chunk){
+		response.push(chunk);
+	});
+
+	pipe.on('end', function(){
+		var res2 = Buffer.concat(response);
+		console.log(res2);
+	});
+	res.end()
+});
+
+app.get('/', function(req, res){
 	messages=[
 		"GO away",
 		"Go Cougs",
@@ -34,9 +50,4 @@ app.post('/', function(req, res){
 	num = Math.floor(Math.random()*5);
 	console.log(req.body)
   res.send(messages[num]);
-});
-
-app.post('/hello', function(req, res){
-	console.log(req.body)
-	res.send()
 });
