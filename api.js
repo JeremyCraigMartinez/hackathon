@@ -15,7 +15,7 @@ app.get('/', function(req, res){
 		"Devin says goodbye",
 		"Jeremy says hi"
 	]
-	num = Math.number(5);
+	num = Math.random(5);
   res.send(message[num]);
 });
 
