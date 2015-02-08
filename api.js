@@ -22,32 +22,14 @@ app.all('*', function(req, res, next) {
   next();
  });
 
+buf = []
+
 app.post('/', function(req, res){
-	var request  = require('request');
-	var pipe 		 = req.pipe(request.get('104.236.169.12:5024/'));
-	var response = []
-
-	pipe.on('data', function(chunk){
-		response.push(chunk);
-	});
-
-	pipe.on('end', function(){
-		var res2 = Buffer.concat(response);
-		console.log(res2);
-	});
+	buf.push(req.body)
 	res.end()
 });
 
 app.get('/', function(req, res){
-	messages=[
-		"GO away",
-		"Go Cougs",
-		"Hey mother fucker",
-		"Kyle says hello goodbye",
-		"Devin says goodbye",
-		"Jeremy says hi"
-	]
-	num = Math.floor(Math.random()*5);
-	console.log(req.body)
-  res.send(messages[num]);
+  res.send(buf);
+  buf = [];
 });
